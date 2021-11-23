@@ -17,7 +17,6 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const clickAction = () => {
-      //   alert('stop clicking me')
       emit('action')
     }
 
