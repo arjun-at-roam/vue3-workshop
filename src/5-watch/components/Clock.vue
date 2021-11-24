@@ -1,12 +1,20 @@
 <template>
   <div class="clock" :style="styledFontColor">
-    <div class="ref">
-      USING REF
-      <div>{{ timeRef }}</div>
+    <div class="time sydney">
+      SYDNEY
+      <div>{{ timeSyd }}</div>
     </div>
-    <h1 v-if="trigger">Vue is pretty cool</h1>
-    <h1 v-else>😊</h1>
+    <div class="time auckland">
+      AUCKLAND/WELLINGTON
+      <div>{{ timeAuck }}</div>
+    </div>
+    <div class="time singapore">
+      SINGAPORE
+      <div>{{ timeSing }}</div>
+    </div>
   </div>
+  <h1 v-if="trigger">Vue is pretty cool</h1>
+  <h1 v-else>😊</h1>
 </template>
 
 <script lang="ts">
@@ -27,10 +35,24 @@ export default defineComponent({
     },
   },
   setup(props) {
-    // using ref
-    const timeRef = ref(new Date())
+    const date = new Date()
+    const tzSyd = 'Australia/Sydney'
+    const tzAuck = 'Pacific/Auckland'
+    const tzSing = 'Asia/Singapore'
+    const timeSyd = ref(date.toLocaleString('en-AU', { timeZone: tzSyd }))
+    const timeAuck = ref(date.toLocaleString('en-AU', { timeZone: tzAuck }))
+    const timeSing = ref(date.toLocaleString('en-AU', { timeZone: tzSing }))
+
     setInterval(() => {
-      timeRef.value = new Date()
+      timeSyd.value = new Date().toLocaleString('en-AU', {
+        timeZone: tzSyd,
+      })
+      timeAuck.value = new Date().toLocaleString('en-AU', {
+        timeZone: tzAuck,
+      })
+      timeSing.value = new Date().toLocaleString('en-AU', {
+        timeZone: tzSing,
+      })
     }, 1000)
 
     const styledFontColor = computed(() => {
@@ -48,13 +70,19 @@ export default defineComponent({
       }
     )
 
-    return { timeRef, styledFontColor, trigger }
+    return { timeSyd, timeAuck, timeSing, styledFontColor, trigger }
   },
 })
 </script>
 <style scoped>
 .clock {
-  margin: 10px;
+  display: flex;
+  justify-content: center;
+  margin: 30px 10px;
+}
+.time {
+  width: 250px;
+  font-weight: bold;
 }
 .ref {
   margin: 20px;

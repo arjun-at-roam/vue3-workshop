@@ -1,18 +1,22 @@
 <template>
   <div class="clock" :style="styledFontColor">
-    <div class="ref">
-      USING REF
-      <div>{{ timeRef }}</div>
+    <div class="time sydney">
+      SYDNEY
+      <div>{{ timeSyd }}</div>
     </div>
-    <div class="reactive">
-      USING REACTIVE
-      <div>{{ timeReactive.value }}</div>
+    <div class="time auckland">
+      AUCKLAND/WELLINGTON
+      <div>{{ timeAuck }}</div>
+    </div>
+    <div class="time singapore">
+      SINGAPORE
+      <div>{{ timeSing }}</div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, computed } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 
 export default defineComponent({
   name: 'Clock',
@@ -23,31 +27,43 @@ export default defineComponent({
     },
   },
   setup(props) {
-    // using ref
-    const timeRef = ref(new Date())
-    setInterval(() => {
-      timeRef.value = new Date()
-    }, 1000)
+    const date = new Date()
+    const tzSyd = 'Australia/Sydney'
+    const tzAuck = 'Pacific/Auckland'
+    const tzSing = 'Asia/Singapore'
+    const timeSyd = ref(date.toLocaleString('en-AU', { timeZone: tzSyd }))
+    const timeAuck = ref(date.toLocaleString('en-AU', { timeZone: tzAuck }))
+    const timeSing = ref(date.toLocaleString('en-AU', { timeZone: tzSing }))
 
-    // using reactive
-    const timeReactive = reactive({
-      value: new Date(),
-    })
     setInterval(() => {
-      timeReactive.value = new Date()
+      timeSyd.value = new Date().toLocaleString('en-AU', {
+        timeZone: tzSyd,
+      })
+      timeAuck.value = new Date().toLocaleString('en-AU', {
+        timeZone: tzAuck,
+      })
+      timeSing.value = new Date().toLocaleString('en-AU', {
+        timeZone: tzSing,
+      })
     }, 1000)
 
     const styledFontColor = computed(() => {
       return 'color: ' + props.fontColor
     })
 
-    return { timeRef, timeReactive, styledFontColor }
+    return { timeSyd, timeAuck, timeSing, styledFontColor }
   },
 })
 </script>
 <style scoped>
 .clock {
-  margin: 10px;
+  display: flex;
+  justify-content: center;
+  margin: 30px 10px;
+}
+.time {
+  width: 250px;
+  font-weight: bold;
 }
 .ref {
   margin: 20px;
