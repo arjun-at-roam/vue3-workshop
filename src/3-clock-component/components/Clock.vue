@@ -1,10 +1,10 @@
 <template>
   <div class="clock" :style="styledFontColor">
-    <div class="ref">
+    <div class="using-ref">
       USING REF
       <div>{{ timeRef }}</div>
     </div>
-    <div class="reactive">
+    <div class="using-reactive">
       USING REACTIVE
       <div>{{ timeReactive.value }}</div>
     </div>
@@ -23,36 +23,37 @@ export default defineComponent({
     },
   },
   setup(props) {
-    // using ref
-    const timeRef = ref(new Date())
-    setInterval(() => {
-      timeRef.value = new Date()
-    }, 1000)
+    const initialTime = new Date()
+    const timeRef = ref(initialTime)
+    const timeReactive = reactive({ value: initialTime })
 
-    // using reactive
-    const timeReactive = reactive({
-      value: new Date(),
-    })
     setInterval(() => {
-      timeReactive.value = new Date()
+      const currentTime = new Date()
+      timeRef.value = currentTime
+      timeReactive.value = currentTime
     }, 1000)
 
     const styledFontColor = computed(() => {
       return 'color: ' + props.fontColor
     })
 
-    return { timeRef, timeReactive, styledFontColor }
+    return {
+      timeRef,
+      timeReactive,
+      styledFontColor,
+    }
   },
 })
 </script>
+
 <style scoped>
 .clock {
-  margin: 10px;
+  margin: 50px;
 }
-.ref {
+.using-ref {
   margin: 20px;
 }
-.reactive {
+.using-reactive {
   margin: 20px;
 }
 </style>

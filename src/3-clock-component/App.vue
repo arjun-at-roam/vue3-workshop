@@ -1,22 +1,31 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
-  <Button name="Click Me!" />
+  <Button label="Click me" :show="true" @event="buttonEvent" />
   <Clock fontColor="#41b883" />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Clock from './components/Clock.vue'
 import Button from './components/Button.vue'
+import Clock from './components/Clock.vue'
 import HelloWorld from './components/HelloWorld.vue'
 
 export default defineComponent({
   name: 'App',
   components: {
-    Clock,
     Button,
+    Clock,
     HelloWorld,
+  },
+  setup() {
+    const buttonEvent = () => {
+      alert('Button event received at app')
+    }
+
+    return {
+      buttonEvent,
+    }
   },
 })
 </script>
