@@ -1,7 +1,7 @@
 <template>
   <div>
     <button class="buttonInput" v-if="show" @click="clickAction">
-      {{ name }}
+      {{ label }}
     </button>
   </div>
 </template>
@@ -12,10 +12,10 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'Button',
   props: {
-    name: {
+    label: {
       type: String,
       required: true,
-      // default: 'default name',
+      // default: 'default label',
     },
     show: {
       type: Boolean,
@@ -24,7 +24,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const clickAction = () => {
-      emit('action')
+      emit('event')
     }
 
     return { clickAction }

@@ -1,7 +1,7 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
-  <Button name="Click Me!" :show="true" />
+  <Button label="Click me" :show="true" @event="buttonEvent" />
   <ResettableInput />
 </template>
 
@@ -17,6 +17,15 @@ export default defineComponent({
     Button,
     ResettableInput,
     HelloWorld,
+  },
+  setup() {
+    const buttonEvent = () => {
+      alert('Button event received at app')
+    }
+
+    return {
+      buttonEvent,
+    }
   },
 })
 </script>
