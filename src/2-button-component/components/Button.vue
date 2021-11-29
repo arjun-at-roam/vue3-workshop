@@ -1,6 +1,8 @@
 <template>
   <div>
-    <button @click="clickAction">{{ name }}</button>
+    <button class="buttonInput" v-if="show" @click="clickAction">
+      {{ name }}
+    </button>
   </div>
 </template>
 
@@ -13,6 +15,11 @@ export default defineComponent({
     name: {
       type: String,
       required: true,
+      // default: 'default name',
+    },
+    show: {
+      type: Boolean,
+      default: false,
     },
   },
   setup(props, { emit }) {
@@ -24,3 +31,9 @@ export default defineComponent({
   },
 })
 </script>
+
+<style scoped>
+.buttonInput {
+  margin: 10px 5px;
+}
+</style>
