@@ -1,7 +1,7 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
-  <Button name="Click Me!" @action="action" />
+  <Button label="Click me" :show="true" @event="buttonEvent" />
   <Clock :fontColor="clockColor" />
 </template>
 
@@ -20,11 +20,11 @@ export default defineComponent({
   },
   setup() {
     const clockColor = ref('#41b883')
-    const action = () => {
+    const buttonEvent = () => {
       clockColor.value = clockColor.value === '#41b883' ? '#2c3e50' : '#41b883'
     }
 
-    return { action, clockColor }
+    return { buttonEvent, clockColor }
   },
 })
 </script>

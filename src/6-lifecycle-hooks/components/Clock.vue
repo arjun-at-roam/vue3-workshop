@@ -18,14 +18,7 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  ref,
-  computed,
-  watch,
-  // watchEffect,
-  // onBeforeUpdate,
-} from 'vue'
+import { defineComponent, ref, computed, watch, onBeforeUpdate } from 'vue'
 
 export default defineComponent({
   name: 'Clock',
@@ -36,9 +29,9 @@ export default defineComponent({
     },
   },
   setup(props) {
-    // onBeforeUpdate(() => {
-    //   console.log('onBeforeUpdate')
-    // })
+    onBeforeUpdate(() => {
+      console.log('onBeforeUpdate')
+    })
     const date = new Date()
     const tzSyd = 'Australia/Sydney'
     const tzAuck = 'Pacific/Auckland'
@@ -64,9 +57,6 @@ export default defineComponent({
     })
 
     const trigger = ref(false)
-    // watchEffect(() => {
-    //   console.log('watchEffect did something ' + props.fontColor)
-    // })
     watch(
       () => props.fontColor,
       () => {
